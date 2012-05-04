@@ -314,8 +314,22 @@ This also means header files should not contain instance variable declarations, 
 
 Of the two methods, using properties (even if just declared in the Class Extension) is better because it generates getters and setters, which give us a common place to add extra code. If bare ivars are used and a change must be made, then we've got extra work to be done.
 
+
+
 ## Keep implementations ordered
 
 This is an easy one. Try to keep methods in the implementation files grouped together logically, instead of strewn about the file. If there are a bunch of delegate methods implemented, put those together, and use a `#pragma mark - SomeDelegateProtocol` methods to mark the beginning of a section of methods.
 
 For subclasses, try to keep your overrides grouped as well, in order of the hierarchy. For example, keep __NSObject__ override methods first, then say, __UIViewController__ overrides, then the subclass's methods.
+
+
+
+## Comments
+
+Comments are good in the public interface to describe what the public APIs do and what the methods' parameters and return values need to be (e.g. "This parameter must not be nil!").
+
+For general code comments, they are often not as necessary. Rather than lots of comments, the methods should be descriptively named, as mentioned above. Comments in implementations can quickly become out of date, and are often reduntant.
+
+Comments which explain _why_ a chunk of code exists are much better than comments which explain _what_ a chunk of code does. Most programmers can follow along a block of code fairly easily without comments, but the real benefit is explaining something like "We're shifting the bits here to set a flag, which is needed so networking turns on", or something to that effect.
+
+
