@@ -367,6 +367,11 @@ For subclasses, try to keep your overrides grouped as well, in order of the hier
 
 
 
+## Xcode templates
+
+Make sure to always use the latest copy of [our Xcode templates](https://github.com/ebf/Xcode-Templates), which already follow conventions of this guide.
+
+
 ## Comments
 
 Comments are good in the public interface to describe what the public APIs do and what the methods' parameters and return values need to be (e.g. "This parameter must not be nil!").
