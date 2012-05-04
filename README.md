@@ -110,3 +110,15 @@ Instance variables are not to be declared in the public `@interface` of a class,
 
 Other symbols follow similar rules as already established.
 
+
+# Constants
+
+Should be declared with the __const__ keyword and should be named with an initial lowercase __k__, followed by the most closely related type or class name, followed by the value.
+
+```objc
+const NSString *kJPProductsDataKey; // defined in an implementation file.
+```
+
+Constants should go in their related class header file if appropriate, or if they are used by potentially many classes, should be placed in a project-wide __Constants.h__ header file which should be imported in the __Project.pch__ prefix file.
+
+
