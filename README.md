@@ -47,6 +47,8 @@ JPClassName.h
 JPClassName.m
 ```
 
+Files should be stored in a logical group hierarchy in Xcode which is dublicated 1-by-1 with a folder hierarchy on disk.
+
 __Note__: A file name should __never__ be named with the same prefix as an Apple provided class, with the exception of _Categories_, whose file naming conventions are described below.
 
 ## Classes
