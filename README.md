@@ -16,3 +16,23 @@ First, some quick terminology.
 * < and > are _angle brackets_.
 * * is an _asterisk_ or _star_ (or _pointer thingy_ :)).
 * _ is an _underscore_.
+
+## Naming
+
+### In general
+
+When giving a name to any kind of symbol, you should strive to make it descriptive over terse. We have text editors capable of auto-completing symbol names, and we expect to make great usage of this. This extends even to iterator variables: these should be named accordingly (even if it's just index, but especially in the case of nested loops, i, j, and k will have your head spinning in no time).
+
+```objc
+NSInteger currentColumn;
+```
+
+The Cocoa naming conventions call for camel-casing all symbol names (with preprocessor bits being the only exclusion):
+
+```objc
+#define X_OFFSET 25.0f
+NSInteger index = [SomeClassName classMethod];
+```
+
+Don't abbreviate symbols and don't use acronyms unless they are extremely common (in which case use uppercase for each letter of the acronym) like URL or PNG. See the Apple reference document for a list of acceptable acronyms.
+
