@@ -73,3 +73,18 @@ Protocols should be named like the classes they pertain to, additionally appendi
 JPCollectionViewDelegate
 JPReaperProtocol
 ```
+
+## Categories
+
+Category file names should indicate the name of the class being extended, followed by a +, followed by the name of the category. I believe this is the default Xcode behaviour as of Xcode 4.2.
+
+When naming the category, avoid using generic names like "Additions", instead being more descriptive of what is being added. If the category methods are a grab bag, then __Utilities__ is preferred. The category name must also be prefixed with the project's suffix.
+
+```objc
+NSString+JP1337Additions.h/m
+```
+
+Categories are used to extend existing classes at runtime without subclassing, and we can make liberal use of these. But categories __must not__ be used to override existing methods.
+
+
+
