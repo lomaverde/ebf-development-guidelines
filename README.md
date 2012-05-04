@@ -207,3 +207,56 @@ Finally, don't be abusive with the compiler:
 ```
 
 # Functions
+
+Always name all arguments even in the header declaration. This assists with code completion and makes it easier for the developer to know which parameters do what.
+
+```objc
+void JPSomeFunction(NSString *); // compiles, but so dirty
+void JPSomeBetterFunction(NSString *name); // delightful and satisfying.
+```
+
+# Whitespace
+
+Whitespace is free. We all have large, high resolution displays. It's good to let the code breathe so it's more readable. Try to keep logical bits and pieces together, and use vertical whitespace to achieve rhythm and pacing.
+
+## General
+
+Use tabs instead of spaces (the default setting, which uses a tab size of 4). Xcode will try to assist you in keeping things properly indented. Follow its suggestions (pro tip: if Xcode is being funky about how it indents things, you've probably got a syntax error somewhere).
+
+There is typically no reason to hard-wrap lines, even though Objective-C tends to be a verbose language, we also have wide diplays, so there is rarely a need to wrap the lines manually. Turning on word-wrap helps for smaller displays.
+
+If you feel the need to wrap a method line, either the signature or an invocation, you may do so but make sure the parameter colons line up properly (Xcode will try its best to do this for you), but generally this isn't necessary.
+
+## Control Structures
+
+Control structures like __if__, __for__, __while__, etc all require one space between the keyword and the open paren, and one space between the closing paren and the opening brace. There should be no padding spaces inside the parens before the actual condition.
+
+```objc
+if (someCondition == otherThing) {
+    NSLog(@"Great success!");
+} else {
+    NSLog(@"No success!");
+}
+```
+
+Assignments inside conditionals should be wrapped in double parentheses, except in case of `-init` which is consistent to the Clang Fixit system.
+
+```objc
+NSUInteger index = 0;
+if (index = 5) // will raise a compiler warning
+if ((index = 5)) // will work fine if intended
+
+- (id)initWithDocumentURL:(NSURL *)documentURL
+{
+    if (self = [super init]) {
+        // initialize instance
+    }
+    return self;
+}
+```
+
+Using control structures without braces should be avoided, as this can lead to hard to detect errors if additional lines are later added. If you decide to go without braces, prefer to keep your code all on one line:
+
+```objc
+if (!condition) return; // bailing early in one line is ok.
+```
