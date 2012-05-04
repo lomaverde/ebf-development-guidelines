@@ -121,4 +121,25 @@ const NSString *kJPProductsDataKey; // defined in an implementation file.
 
 Constants should go in their related class header file if appropriate, or if they are used by potentially many classes, should be placed in a project-wide __Constants.h__ header file which should be imported in the __Project.pch__ prefix file.
 
+# Enumerations
+
+Enums should be used whenever a variety of integer values could be used (usually as some kind of descriminating grouping). Enumerations should be __typedef__'d and given a name in a similar style to their related class. The enum values should be named similarly, including the name of the type, with the actual type appended.
+
+```objc
+typedef enum {
+    JPProductPlacementTypeTop,
+    JPProductPlacementTypeCenter,
+    JPProductPlacementTypeBottom
+} JPProductPlacementType;
+```
+
+Even though __enum__ values are really just integers, they should always be treated as their own type (e.g. __JPProductPlacementType__, and never just __int__). This gives the symbol extra context instead of just some random, unrelated type. This also means you should never use a plain integer when a enum value is needed.
+
+```objc
+cell.placementType = 1; // BAD!
+cell.placementType = JPProductPlacementTypeCenter; // A++!
+```
+
+If the number the enum value resolves to ever changes, you get the new value for free!
+
 
