@@ -17,9 +17,19 @@ First, some quick terminology.
 * * is an _asterisk_ or _star_ (or _pointer thingy_ :)).
 * _ is an _underscore_.
 
-## Naming
+## About performance
 
-### In general
+Some of these guidelines may seem counter-perfomance (that is, these conventions may appear to hurt performance), but in fact, they are in place to help performance: Developer performance. Most runtime performance hits as a result to this guide will be negligeable, but the gains to the developers will be substantial.
+
+If any of the guidelines causes a substantial performance hit, it can be dealt with on a case basis, and only after it has been thoroughly profiled.
+
+
+
+# Naming
+
+
+
+## In general
 
 When giving a name to any kind of symbol, you should strive to make it descriptive over terse. We have text editors capable of auto-completing symbol names, and we expect to make great usage of this. This extends even to iterator variables: these should be named accordingly (even if it's just index, but especially in the case of nested loops, i, j, and k will have your head spinning in no time).
 
@@ -36,6 +46,8 @@ NSInteger index = [SomeClassName classMethod];
 
 Don't abbreviate symbols and don't use acronyms unless they are extremely common (in which case use uppercase for each letter of the acronym) like URL or PNG. See the Apple reference document for a list of acceptable acronyms.
 
+
+
 ## Files
 
 Files should be given descriptive, camel cased names, with the initial letter being uppercased. When creating classes in Xcode, this is the default behavior, as the file names match the class names they contain.
@@ -51,6 +63,8 @@ Files should be stored in a logical group hierarchy in Xcode which is dublicated
 
 __Note__: A file name should __never__ be named with the same prefix as an Apple provided class, with the exception of _Categories_, whose file naming conventions are described below.
 
+
+
 ## Classes
 
 Class names must be indicative of their class heirarchy. That is, from the class name, you should be able to correctly guess exactly what "kind of" class it is. Don't rely on the Xcode folder/group structure to indicate this, as the text editor itself ignores in which folder the class appears.
@@ -65,6 +79,8 @@ Controller classes should contain __Controller__ in the name, View classes shoul
 
 __Note__: A class should __never__ be named with the same prefix as an Apple provided class.
 
+
+
 ## Protocols
 
 Protocols should be named like the classes they pertain to, additionally appending the protocol role. If there is no distinct role, appending __Protocol__ is sufficient. The goal is to be able to tell at a glance what the symbol represents.
@@ -73,6 +89,8 @@ Protocols should be named like the classes they pertain to, additionally appendi
 JPCollectionViewDelegate
 JPReaperProtocol
 ```
+
+
 
 ## Categories
 
@@ -85,6 +103,7 @@ NSString+JP1337Additions.h/m
 ```
 
 Categories are used to extend existing classes at runtime without subclassing, and we can make liberal use of these. But categories __must not__ be used to override existing methods.
+
 
 
 ## Variables
@@ -100,18 +119,23 @@ NSString *localString;
 NSString *password;
 ```
 
-# Instance variables
+
+
+### Instance variables
 
 Instance variables should be named like normal variables, except with a leading underscore.
 
 Instance variables are not to be declared in the public `@interface` of a class, as this leaks irrelevant implementation details. Instead, declare them in the private `@interface JPClassName ()` block. See the below section for more information on interfaces and implementation.
+
+
 
 ## Other symbols
 
 Other symbols follow similar rules as already established.
 
 
-# Constants
+
+### Constants
 
 Should be declared with the __const__ keyword and should be named with an initial lowercase __k__, followed by the most closely related type or class name, followed by the value.
 
@@ -121,7 +145,9 @@ const NSString *kJPProductsDataKey; // defined in an implementation file.
 
 Constants should go in their related class header file if appropriate, or if they are used by potentially many classes, should be placed in a project-wide __Constants.h__ header file which should be imported in the __Project.pch__ prefix file.
 
-# Enumerations
+
+
+### Enumerations
 
 Enums should be used whenever a variety of integer values could be used (usually as some kind of descriminating grouping). Enumerations should be __typedef__'d and given a name in a similar style to their related class. The enum values should be named similarly, including the name of the type, with the actual type appended.
 
@@ -142,7 +168,9 @@ cell.placementType = JPProductPlacementTypeCenter; // A++!
 
 If the number the enum value resolves to ever changes, you get the new value for free!
 
-# Define
+
+
+### Define
 
 __#define__ values should only be used for small, internal uses where one of the above symbol types seems like overkill. Define is the poor-man's constant.
 
@@ -153,7 +181,8 @@ Defines should be all uppercase, with underscores used as a delimiter.
 ```
 
 
-# Methods
+
+## Methods
 
 Methods should be given descriptive names, where clarity is the most important feature. Names should be camel-cased with the initial letter lowercased.
 
@@ -206,7 +235,9 @@ Finally, don't be abusive with the compiler:
 - (NSString *)stringByConstructingURLFromHost:(NSString *)host path:(NSString *)path;
 ```
 
-# Functions
+
+
+### Functions
 
 Always name all arguments even in the header declaration. This assists with code completion and makes it easier for the developer to know which parameters do what.
 
@@ -215,9 +246,13 @@ void JPSomeFunction(NSString *); // compiles, but so dirty
 void JPSomeBetterFunction(NSString *name); // delightful and satisfying.
 ```
 
+
+
 # Whitespace
 
 Whitespace is free. We all have large, high resolution displays. It's good to let the code breathe so it's more readable. Try to keep logical bits and pieces together, and use vertical whitespace to achieve rhythm and pacing.
+
+
 
 ## General
 
@@ -226,6 +261,8 @@ Use tabs instead of spaces (the default setting, which uses a tab size of 4). Xc
 There is typically no reason to hard-wrap lines, even though Objective-C tends to be a verbose language, we also have wide diplays, so there is rarely a need to wrap the lines manually. Turning on word-wrap helps for smaller displays.
 
 If you feel the need to wrap a method line, either the signature or an invocation, you may do so but make sure the parameter colons line up properly (Xcode will try its best to do this for you), but generally this isn't necessary.
+
+
 
 ## Control Structures
 
@@ -261,7 +298,9 @@ Using control structures without braces should be avoided, as this can lead to h
 if (!condition) return; // bailing early in one line is ok.
 ```
 
-## Comparing against `nil` and buddies
+
+
+### Comparing against `nil` and buddies
 
 When comparing a variable for equality against __nil__ or some constant, put the constant value last. The Clang compiler will warn against unwanted assignments by forgetting the second __=__.
 
@@ -270,7 +309,11 @@ if (hopefullyExistingObject = nil) { ... // oops! bad but will raise a compiler 
 if (hopefullyExistingObject == nil) { ... 
 ```
 
+
+
 # Project Conventions
+
+
 
 ## Keep public API simple
 
@@ -340,7 +383,7 @@ Being a good Cocoa citizen means following the conventions of the environment. W
 
 
 
-# Blocks
+### Blocks
 
 When implementing a callback mechanism, use Block objects instead of delegation wherever possible. These cut down on the verbiage of having to declare a delegate protocol, then marking your class as conforming to the protocol, then implementing the delegate methods.
 
@@ -350,13 +393,13 @@ Use caution with Block objects, as they automatically retain objects referenced 
 
 
 
-# Delegates
+### Delegates
 
 Delegates are useful when fine granularity is needed in callbacks, or when multiple objects might be using the same callbacks, although they should generally be avoided in favour of Block object handlers.
 
 
 
-# Use Cocoa "primitives"
+### Use Cocoa "primitives"
 
 Try to use the declared Cocoa "primitives" instead of their plain C counterparts. This means using __NSInteger__ and __NSUInteger__ instead of __int__ and __unsigned int__, or using __CGFloat__ instead of __float__.
 
@@ -366,7 +409,7 @@ It also means we should use types like __NSTimeInterval__, which really evaluate
 
 
 
-# Exceptions
+### Exceptions
 
 Throwing exceptions in Cocoa is reserved for programmer error. If there is a possibility of something going wrong at runtime, your API should require an __NSError__ pointer pointer and the method should return NO or nil on error condition, filling the error pointer too. Exceptions should not be used.
 
@@ -374,7 +417,7 @@ If your code crashes on an __Uncaught Exception__, this means there is something
 
 
 
-# ARC
+### ARC
 
 All new projects should use Automatic Reference Counting. Existing projects should be upgraded as soon as possible.
 
@@ -382,7 +425,7 @@ For projects supporting iOS 5+, we should be using `weak` and `strong` propertie
 
 
 
-# Warnings and Errors
+## Warnings and Errors
 
 Warnings should be treated as errors, both by you and by the compiler. A warning is just a bug that maybe hasn't happened yet.
 
@@ -392,7 +435,7 @@ Fix all the warnings as soon as they happen so they don't get out of control.
 
 
 
-# Xibs and Interface Builder
+## Xibs and Interface Builder
 
 Interface Builder documents can be really useful and allow us to quickly prototype our interfaces, but they can usually only get us 90% of the way, with the other 10% being impossible without using code.
 
@@ -402,7 +445,7 @@ Due to these issues, using Interface Builder documents should be avoided for eve
 
 
 
-# Base SDK and Deployment Target
+## Base SDK and Deployment Target
 
 The project's __Base SDK__ should always be set to __Latest iOS Version__, so we'll always be linking against the newest SDK code and symbols.
 
