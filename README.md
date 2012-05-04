@@ -382,3 +382,35 @@ For projects supporting iOS 5+, we should be using `weak` and `strong` propertie
 
 
 
+# Warnings and Errors
+
+Warnings should be treated as errors, both by you and by the compiler. A warning is just a bug that maybe hasn't happened yet.
+
+All Xcode projects should have the `-Werror` compiler flag turned on and left on. If we turn this flag on from the beginning, then fixing warnings should not be a problem. If we turn it on later in the project, we'll have more work to do.
+
+Fix all the warnings as soon as they happen so they don't get out of control.
+
+
+
+# Xibs and Interface Builder
+
+Interface Builder documents can be really useful and allow us to quickly prototype our interfaces, but they can usually only get us 90% of the way, with the other 10% being impossible without using code.
+
+Xibs and Storyboard files are very difficult to merge if two or more developers have worked on them on different branches, causing massive headaches.
+
+Due to these issues, using Interface Builder documents should be avoided for everything except quick prototyping (which will be later thrown out).
+
+
+
+# Base SDK and Deployment Target
+
+The project's __Base SDK__ should always be set to __Latest iOS Version__, so we'll always be linking against the newest SDK code and symbols.
+
+Our Deployment Target depends on the oldest possible OS version we'd like to support, e.g. only supporting back to iOS 5.0.
+
+
+
+# Being a good boyscout
+
+Finally, do your best to always be improving the code. Leave it in a better state than how you found it. If you notice a class is messy, then clean it up and make it adhere to this style guide.
+
