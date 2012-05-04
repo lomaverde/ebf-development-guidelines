@@ -417,7 +417,7 @@ If your code crashes on an __Uncaught Exception__, this means there is something
 
 
 
-### ARC
+## ARC
 
 All new projects should use Automatic Reference Counting. Existing projects should be upgraded as soon as possible.
 
