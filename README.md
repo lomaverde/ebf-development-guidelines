@@ -243,8 +243,8 @@ Assignments inside conditionals should be wrapped in double parentheses, except 
 
 ```objc
 NSUInteger index = 0;
-if (index = 5) // will raise a compiler warning
-if ((index = 5)) // will work fine if intended
+if (index = 5) { ... // will raise a compiler warning
+if ((index = 5)) { ... // will work fine if intended
 
 - (id)initWithDocumentURL:(NSURL *)documentURL
 {
@@ -260,3 +260,16 @@ Using control structures without braces should be avoided, as this can lead to h
 ```objc
 if (!condition) return; // bailing early in one line is ok.
 ```
+
+## Comparing against `nil` and buddies
+
+When comparing a variable for equality against __nil__ or some constant, put the constant value last. The Clang compiler will warn against unwanted assignments by forgetting the second __=__.
+
+```objc
+if (hopefullyExistingObject = nil) { ... // oops! bad but will raise a compiler warning.
+if (hopefullyExistingObject == nil) { ... 
+```
+
+Project Conventions
+
+
