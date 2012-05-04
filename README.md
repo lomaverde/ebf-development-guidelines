@@ -87,4 +87,15 @@ NSString+JP1337Additions.h/m
 Categories are used to extend existing classes at runtime without subclassing, and we can make liberal use of these. But categories __must not__ be used to override existing methods.
 
 
+## Variables
 
+Variables are to be named in camel-case, initially lowercase. This applies to instance, static, and local variables. Block variables are treated the same as local scope variables in terms of naming conventions.
+
+When declaring objects or any other pointer type, the star belongs with the variable name.
+
+Keep variable declarations on their own line even if they are of the same type.
+
+```objc
+NSString *localString;
+NSString *password;
+```
