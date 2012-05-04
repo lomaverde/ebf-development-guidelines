@@ -48,3 +48,18 @@ JPClassName.m
 ```
 
 __Note__: A file name should __never__ be named with the same prefix as an Apple provided class, with the exception of _Categories_, whose file naming conventions are described below.
+
+## Classes
+
+Class names must be indicative of their class heirarchy. That is, from the class name, you should be able to correctly guess exactly what "kind of" class it is. Don't rely on the Xcode folder/group structure to indicate this, as the text editor itself ignores in which folder the class appears.
+
+```objc
+JPProductsTableViewController
+```
+
+The above name is descriptive, and immediately indicates to the developer this class is a TableViewController which displays products.
+
+Controller classes should contain __Controller__ in the name, View classes should contain __View__ in the name (e.g. __JPProductsTableViewCell__), and Model classes should generally contain neither, but still indicate what they are (avoid the use of __Model__ in the name as it is redundant).
+
+__Note__: A class should __never__ be named with the same prefix as an Apple provided class.
+
