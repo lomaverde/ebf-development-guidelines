@@ -36,3 +36,15 @@ NSInteger index = [SomeClassName classMethod];
 
 Don't abbreviate symbols and don't use acronyms unless they are extremely common (in which case use uppercase for each letter of the acronym) like URL or PNG. See the Apple reference document for a list of acceptable acronyms.
 
+## Files
+
+Files should be given descriptive, camel cased names, with the initial letter being uppercased. When creating classes in Xcode, this is the default behavior, as the file names match the class names they contain.
+
+Files should be prefixed with the project prefix.
+
+```objc
+JPClassName.h
+JPClassName.m
+```
+
+__Note__: A file name should __never__ be named with the same prefix as an Apple provided class, with the exception of _Categories_, whose file naming conventions are described below.
