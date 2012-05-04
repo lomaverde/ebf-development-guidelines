@@ -142,4 +142,13 @@ cell.placementType = JPProductPlacementTypeCenter; // A++!
 
 If the number the enum value resolves to ever changes, you get the new value for free!
 
+# Define
+
+__#define__ values should only be used for small, internal uses where one of the above symbol types seems like overkill. Define is the poor-man's constant.
+
+Defines should be all uppercase, with underscores used as a delimiter.
+
+```objc
+#define CELL_X_OFFSET 25.0f
+```
 
