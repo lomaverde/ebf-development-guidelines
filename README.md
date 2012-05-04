@@ -333,3 +333,52 @@ For general code comments, they are often not as necessary. Rather than lots of 
 Comments which explain _why_ a chunk of code exists are much better than comments which explain _what_ a chunk of code does. Most programmers can follow along a block of code fairly easily without comments, but the real benefit is explaining something like "We're shifting the bits here to set a flag, which is needed so networking turns on", or something to that effect.
 
 
+
+## Being a good Cocoa citizen
+
+Being a good Cocoa citizen means following the conventions of the environment. We can get lots accomplished with the provided libraries. External frameworks like Three20 should be considered kind of harmful because they impose conventions from a different programming environment.
+
+
+
+# Blocks
+
+When implementing a callback mechanism, use Block objects instead of delegation wherever possible. These cut down on the verbiage of having to declare a delegate protocol, then marking your class as conforming to the protocol, then implementing the delegate methods.
+
+With Block objects, they are typically __typedef__'d in a class header, and then implemented inline as they are needed. Much simpler.
+
+Use caution with Block objects, as they automatically retain objects referenced inside them. Usually this isn't too much of a problem as they are also released when the Block is destroyed, but it can lead to retain cycles. Consider using `__weak JPSomeClass *weakObject = someStrongObject;` and referencing the weak version instead in the Block object to avoid such a cycle (if someStrongObject retains the Block object).
+
+
+
+# Delegates
+
+Delegates are useful when fine granularity is needed in callbacks, or when multiple objects might be using the same callbacks, although they should generally be avoided in favour of Block object handlers.
+
+
+
+# Use Cocoa "primitives"
+
+Try to use the declared Cocoa "primitives" instead of their plain C counterparts. This means using __NSInteger__ and __NSUInteger__ instead of __int__ and __unsigned int__, or using __CGFloat__ instead of __float__.
+
+We do this because it gives better flexibility if Apple ever changes what they decide an __NSInteger__ should refer to. The Cocoa types are really just typedefs which evaluate to different primative types depending on the archictecture they are compiled for. If Apple ever move iOS to a 64 bit platform, all uses of __NSInteger__ will automatically be updated on the next compile to use the proper types. We won't have to modify our code nearly as much for any possible future processor architecture changes.
+
+It also means we should use types like __NSTimeInterval__, which really evaluates to a double, but using the Apple provided types are better because they give more context as to what the variable represents.
+
+
+
+# Exceptions
+
+Throwing exceptions in Cocoa is reserved for programmer error. If there is a possibility of something going wrong at runtime, your API should require an __NSError__ pointer pointer and the method should return NO or nil on error condition, filling the error pointer too. Exceptions should not be used.
+
+If your code crashes on an __Uncaught Exception__, this means there is something incorrect in your code (i.e. programmer error) and you need to fix this. A typical example would be an ArrayOutOfBoundsException. This is a mistake by the programmer, not a runtime error condition.
+
+
+
+# ARC
+
+All new projects should use Automatic Reference Counting. Existing projects should be upgraded as soon as possible.
+
+For projects supporting iOS 5+, we should be using `weak` and `strong` properties. Though `retain` and `strong` are synonyms in ARC, strong should be used instead as it gives a better and more consistent indication of what the property is doing in terms of the object graph. It's also more consistent with the storage types (like `__weak`, `__strong`, etc.).
+
+
+
