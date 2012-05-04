@@ -270,6 +270,52 @@ if (hopefullyExistingObject = nil) { ... // oops! bad but will raise a compiler 
 if (hopefullyExistingObject == nil) { ... 
 ```
 
-Project Conventions
+# Project Conventions
+
+## Keep public API simple
+
+The Public API is what's exposed in your header files. These headers should only include the very minimal set of methods which can be used by outside classes. Any internal methods which won't either be invoked by outside classes, or overridden by sublcasses, should not be put in the .h file. This includes __@property__ declarations. Public properties belong in the headers, but private ones should be declared in the __class extension__ `@interface JPClass ()` at the top of the __.m__ file.
+
+This also means header files should not contain instance variable declarations, as they are really an implementation detail. There are two other ways to declare instance variables (without dropping down to the runtime level).
+
+1. Variables can be synthesized with the __@synthesize__ and a matching property name (and synthesized variables can even be given a custom name like so `@synthesize myPropertyName=_myPropertyName;`. The propery is still __myPropertyName__, but the actual instance variable created has a leading underscore).
+2. Declaring instance variables in `@interface JPClass ()` category in the .m file. This is just like declaring them in the __@interface__, except they're no longer visible to consuming classes or subclasses.
+3. Private methods should be prefixed with a leading underscore and also be declared in the private category `@interface JPClass ()` at the top of the .m file, just like iVars.
+4. Private properties should not be named with a leading underscore because this can cause confusion with iVar naming conventions.
+
+```objc
+// JPClass.m
+
+@interface JPMyClass () {
+    NSString *_internalVariable;
+    id _myPrivateIVar;
+}
+
+@property (nonatomic, strong) id myPrivateIVar;
+
+- (void)_doSomePrivateStuff;
+
+@end
 
 
+
+@implementation JPMyClass
+@synthesize myPrivateIVar=_myPrivateIVar;
+
+#pragma mark - Private category implementation ()
+
+- (void)_doSomePrivateStuff
+{
+    NSLog(@"Wohooo!");
+}
+
+@end
+```
+
+Of the two methods, using properties (even if just declared in the Class Extension) is better because it generates getters and setters, which give us a common place to add extra code. If bare ivars are used and a change must be made, then we've got extra work to be done.
+
+## Keep implementations ordered
+
+This is an easy one. Try to keep methods in the implementation files grouped together logically, instead of strewn about the file. If there are a bunch of delegate methods implemented, put those together, and use a `#pragma mark - SomeDelegateProtocol` methods to mark the beginning of a section of methods.
+
+For subclasses, try to keep your overrides grouped as well, in order of the hierarchy. For example, keep __NSObject__ override methods first, then say, __UIViewController__ overrides, then the subclass's methods.
