@@ -6,3 +6,13 @@ Many of the conventions in this guide are common to existing Cocoa style guides 
 
 This document also strives to include the best and most modern features of the Objective-C language, Cocoa frameworks, and the iOS SDK in general, so that excessive baggage does not creep in. As the environment evolves, so too must this guide.
 
+## Terminology
+
+First, some quick terminology.
+
+* ( and ) are _parentheses_.
+* { and } are _braces_.
+* [ and ] are _brackets_.
+* < and > are _angle brackets_.
+* * is an _asterisk_ or _star_ (or _pointer thingy_ :)).
+* _ is an _underscore_.
