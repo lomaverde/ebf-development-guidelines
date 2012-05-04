@@ -65,3 +65,11 @@ Controller classes should contain __Controller__ in the name, View classes shoul
 
 __Note__: A class should __never__ be named with the same prefix as an Apple provided class.
 
+## Protocols
+
+Protocols should be named like the classes they pertain to, additionally appending the protocol role. If there is no distinct role, appending __Protocol__ is sufficient. The goal is to be able to tell at a glance what the symbol represents.
+
+```objc
+JPCollectionViewDelegate
+JPReaperProtocol
+```
