@@ -99,3 +99,14 @@ Keep variable declarations on their own line even if they are of the same type.
 NSString *localString;
 NSString *password;
 ```
+
+# Instance variables
+
+Instance variables should be named like normal variables, except with a leading underscore.
+
+Instance variables are not to be declared in the public `@interface` of a class, as this leaks irrelevant implementation details. Instead, declare them in the private `@interface JPClassName ()` block. See the below section for more information on interfaces and implementation.
+
+## Other symbols
+
+Other symbols follow similar rules as already established.
+
